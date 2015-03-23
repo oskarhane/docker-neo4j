@@ -1,24 +1,17 @@
-FROM dockerfile/java
+FROM java:7
 MAINTAINER Oskar Hane "oh@oskarhane.com"
 
 RUN wget -O - http://debian.neo4j.org/neotechnology.gpg.key | apt-key add - 
 RUN echo 'deb http://debian.neo4j.org/repo stable/' > /etc/apt/sources.list.d/neo4j.list
-RUN apt-get -q update && apt-get install neo4j -y -q
+RUN apt-get -q update && apt-get install neo4j -y -q && apt-get clean
 
-ADD launch.sh /
-RUN chmod +x /launch.sh
-
-## clean sources
-RUN apt-get clean
-
-## turn on indexing: http://chrislarson.me/blog/install-neo4j-graph-database-ubuntu
-## enable neo4j indexing, and set indexable keys to name,age
-RUN sed -i "s|#node_auto_indexing|node_auto_indexing|g" /var/lib/neo4j/conf/neo4j.properties
-RUN sed -i "s|#node_keys_indexable|node_keys_indexable|g" /var/lib/neo4j/conf/neo4j.properties
-
-workdir /
+RUN ulimit -n 65536
+RUN sed -i "s|#org.neo4j.server.webserver.address=0.0.0.0|org.neo4j.server.webserver.address=0.0.0.0|g" /var/lib/neo4j/conf/neo4j-server.properties
 
 EXPOSE 7474
+EXPOSE 7473
+EXPOSE 1337
 
-## entrypoint
-CMD ["/bin/bash", "-c", "/launch.sh"]
+VOLUME  ["/opt/neo4j/conf", "/opt/neo4j/data/graph.db", "/opt/neo4j/data/log", "/opt/neo4j/plugins"]
+
+CMD ["/var/lib/neo4j/bin/neo4j", "console"]
