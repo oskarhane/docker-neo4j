@@ -3,7 +3,7 @@ MAINTAINER Oskar Hane "oh@oskarhane.com"
 
 RUN wget -O - http://debian.neo4j.org/neotechnology.gpg.key | apt-key add - 
 RUN echo 'deb http://debian.neo4j.org/repo stable/' > /etc/apt/sources.list.d/neo4j.list
-RUN apt-get -q update && apt-get install neo4j -y -q && apt-get clean
+RUN apt-get -q update && apt-get install neo4j-enterprise -y -q && apt-get clean
 
 RUN sed -i "s|#org.neo4j.server.webserver.address=0.0.0.0|org.neo4j.server.webserver.address=0.0.0.0|g" /var/lib/neo4j/conf/neo4j-server.properties
 
