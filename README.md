@@ -1,15 +1,17 @@
 Unofficial Docker image for Neo4j Graph Database
 =====
 
-Neo4j is a highly scalable, robust (fully ACID) native graph database. Neo4j is used in mission-critical apps by thousands of leading, startups, enterprises, and governments around the world.
+Neo4j is a highly scalable, robust (fully ACID) native graph database. Neo4j is used in mission-critical apps by thousands of leading, startups, enterprises, and governments around the world. Read more at [Neo4j.com](http://neo4j.com).
 
-With the Dockerfile on repository you've a docker neo4j community edition image ready to go for testing purposes.
+With this Docker repository you get Neo4j Community Edition containers ready to go for development/testing purposes. The `:testing` tag gives you the latest unstable release while the `:latest` tag gives your the latest stable release.
 
 ### Setup
 
  1. Execute this command:
 
-    `docker run -itd -p 7474 oskarhane/docker-neo4j`
+    `docker run -itd -p 7474 oskarhane/docker-neo4j`  
+or  
+    `docker run -itd -p 7474 oskarhane/docker-neo4j:testing`
     
  2. Run `docker ps` to find out the port.
 
